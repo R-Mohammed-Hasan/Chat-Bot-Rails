@@ -1,0 +1,37 @@
+<head>
+<%= javascript_include_tag "index", "data-turbo-track" => "reload" %>
+</head>
+<div class="container mt-5">
+    <div class="row mt-4">
+
+        <div class="col-md-6 text-center">
+            <%# <h1 class="display-2 ">Chat Bot</h1> %>
+            <%# <%= image_tag("bot.gif") %>
+        </div>
+
+        <div class="col-md-4 content p-3 mt-5 chat">
+            <div class="main">
+                   
+            </div>
+            <div class="input-group">
+            <% @chattings.each do |message| %>
+                <%= form_for message,url: message_path,id: "message_form", remote: true do |f| %>
+                    <%= f.text_field :message, class: "form-control",id: "inputChat",placeholder: "Ask anything to Bot now...." %>
+                    <%= button_tag "Send",type: "submit",class: "btn btn-primary btn-lg" do %>
+                       Send <i class="far fa-paper-plane p-1"></i>
+                    <% end %>                   
+                <% end %>
+            <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById("inputChat").focus();
+$("#inputChat").on("keypress", (e) => {
+    if (e.keyCode == 13) {
+        showInput();
+    }
+});
+</script>
